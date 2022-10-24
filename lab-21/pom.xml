@@ -15,6 +15,7 @@
         <module>lab-21-cache-demo</module>
         <module>lab-21-cache-ehcache</module>
         <module>lab-21-cache-redis</module>
+        <module>lab-21-cache-jetcache</module>
     </modules>
 
 

@@ -23,6 +23,26 @@ spring:
   cache:
     type: redis
 
+jetcache:
+  statIntervalMinutes: 15
+  areaInCacheName: false
+  local:
+    default:
+      type: caffeine
+      keyConvertor: fastjson
+  remote:
+    default:
+      type: redis.springdata
+      keyConvertor: fastjson2
+      broadcastChannel: projectA
+      valueEncoder: java
+      valueDecoder: java
+      poolConfig:
+        minIdle: 5
+        maxIdle: 20
+        maxTotal: 50
+
+
 # mybatis-plus 配置内容
 mybatis-plus:
   configuration:

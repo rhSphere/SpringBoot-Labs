@@ -10,7 +10,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>lab-21-cache-redis</artifactId>
+    <artifactId>lab-21-cache-jetcache</artifactId>
+
 
     <dependencies>
         <!-- 实现对数据库连接池的自动化配置 -->
@@ -80,8 +81,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <groupId>com.alicp.jetcache</groupId>
+            <artifactId>jetcache-starter-redis</artifactId>
+            <version>2.7.0</version>
         </dependency>
     </dependencies>
 

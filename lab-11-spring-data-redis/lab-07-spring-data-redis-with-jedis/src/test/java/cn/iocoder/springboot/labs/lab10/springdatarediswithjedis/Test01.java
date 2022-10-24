@@ -37,7 +37,7 @@ public class Test01 {
     @Test
     public void testStringSetKeyUserCache() {
         UserCacheObject object = new UserCacheObject()
-                .setId(1)
+                .setId(2)
                 .setName("芋道源码")
                 .setGender(1); // 男
         String key = String.format("user:%d", object.getId());
@@ -46,7 +46,7 @@ public class Test01 {
 
     @Test
     public void testStringGetKeyUserCache() {
-        String key = String.format("user:%d", 1);
+        String key = String.format("user:%d", 2);
         Object value = redisTemplate.opsForValue().get(key);
         System.out.println(value);
     }

@@ -37,11 +37,11 @@ public class LockTest {
         Thread.sleep(1000L);
 
         // 尝试加锁，最多等待 100 秒，上锁以后 10 秒自动解锁
-        System.out.println(String.format("准备开始获得锁时间：%s", new SimpleDateFormat("yyyy-MM-DD HH:mm:ss").format(new Date())));
+        System.out.println(String.format("准备开始获得锁时间：%s", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
         final RLock lock = redissonClient.getLock(LOCK_KEY);
         boolean res = lock.tryLock(100, 10, TimeUnit.SECONDS);
         if (res) {
-            System.out.println(String.format("实际获得锁时间：%s", new SimpleDateFormat("yyyy-MM-DD HH:mm:ss").format(new Date())));
+            System.out.println(String.format("实际获得锁时间：%s", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
         } else {
             System.out.println("加锁失败");
         }

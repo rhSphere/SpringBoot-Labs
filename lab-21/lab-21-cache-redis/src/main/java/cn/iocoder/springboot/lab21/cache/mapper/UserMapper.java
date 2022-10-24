@@ -23,7 +23,7 @@ public interface UserMapper extends BaseMapper<UserDO> {
         return user;
     }
 
-    @CacheEvict(key = "#id")
+    @CacheEvict(key = "#id", allEntries = true)
     int deleteById(Integer id);
 
 }

@@ -1,16 +1,46 @@
-package cn.iocoder.springboot.labs.lab10.springdatarediswithjedis.config;
+package cn.iocoder.springboot.lab21.cache.config;
 
-import cn.iocoder.springboot.labs.lab10.springdatarediswithjedis.listener.TestChannelTopicMessageListener;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-@Configuration
+import java.time.Duration;
+
+//@Configuration
+//@EnableCaching
 public class RedisConfiguration {
+
+
+    private static final String KEY_SEPERATOR = "::";
+
+    /**
+     * 自定义CacheManager，具体配置参考{@link org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration}
+     *
+     * @param redisConnectionFactory 自动配置会注入
+     * @return
+     */
+//    @Bean(name = "redisCacheManager")
+    public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
+        RedisSerializer<String> keySerializer = new StringRedisSerializer();
+        RedisSerializer<Object> valueSerializer = new GenericJackson2JsonRedisSerializer();
+        RedisCacheConfiguration cacheConfig = RedisCacheConfiguration.defaultCacheConfig()
+            .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(keySerializer))
+            .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(valueSerializer))
+            .computePrefixWith(key -> key.concat(KEY_SEPERATOR))
+            .entryTtl(Duration.ofSeconds(60))
+            ;
+        return RedisCacheManager.builder(redisConnectionFactory).cacheDefaults(cacheConfig).build();
+    }
+
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
@@ -39,7 +69,7 @@ public class RedisConfiguration {
 //        jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 //        template.setValueSerializer(jackson2JsonRedisSerializer);
 
-    @Bean // PUB/SUB 使用的 Bean ，需要时打开。
+    //    @Bean // PUB/SUB 使用的 Bean ，需要时打开。
     public RedisMessageListenerContainer listenerContainer(RedisConnectionFactory factory) {
         // 创建 RedisMessageListenerContainer 对象
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
@@ -48,7 +78,7 @@ public class RedisConfiguration {
         container.setConnectionFactory(factory);
 
         // 添加监听器
-        container.addMessageListener(new TestChannelTopicMessageListener(), new ChannelTopic("TEST"));
+//        container.addMessageListener(new TestChannelTopicMessageListener(), new ChannelTopic("TEST"));
 //        container.addMessageListener(new TestChannelTopicMessageListener(), new ChannelTopic("AOTEMAN"));
 //        container.addMessageListener(new TestPatternTopicMessageListener(), new PatternTopic("TEST"));
         return container;

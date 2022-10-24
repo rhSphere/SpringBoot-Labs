@@ -35,13 +35,13 @@ public class Test01 {
         Assert.assertEquals("值不匹配", "shuai", value);
 
         // 测试重启后读取
-        redisTemplate.execute(new RedisCallback() {
-            @Override
-            public Object doInRedis(RedisConnection connection) throws DataAccessException {
-                connection.flushDb();
-                return "";
-            }
-        });
+//        redisTemplate.execute(new RedisCallback() {
+//            @Override
+//            public Object doInRedis(RedisConnection connection) throws DataAccessException {
+//                connection.flushDb();
+//                return "";
+//            }
+//        });
     }
 
 }
