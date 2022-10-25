@@ -13,7 +13,7 @@
         <!-- Spring Boot 示例 -->
 <!--        <module>lab-01-spring-security</module>-->
 <!--        <module>lab-02-spring-security-oauth</module>-->
-<!--        <module>lab-03-kafka</module>-->
+        <module>lab-03-kafka</module>
 <!--        <module>lab-04-rabbitmq</module>-->
 <!--        <module>lab-05-benchmark-tomcat-jetty-undertow</module>-->
 <!--        <module>lab-06</module>-->
@@ -55,7 +55,7 @@
 <!--        <module>lab-45</module>-->
 <!--        <module>lab-46</module>-->
 <!--        <module>lab-47</module>-->
-<!--        <module>lab-48-hot-swap</module>-->
+        <module>lab-48-hot-swap</module>
 <!--        <module>lab-49</module>-->
 <!--        <module>lab-50</module>-->
 <!--        <module>lab-51</module>-->
